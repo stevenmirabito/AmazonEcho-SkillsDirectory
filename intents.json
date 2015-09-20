@@ -1,0 +1,37 @@
+{
+  "intents":[
+    {
+      "intent":"quit",
+      "slots":[]
+    },
+    {
+      "intent":"next",
+      "slots": []
+    },
+    {
+      "intent":"UserSearch",
+      "slots": [
+        {
+          "name": "skill",
+          "type": "LITERAL"
+        }
+      ]
+    },
+    {
+      "intent":"SkillSet",
+      "slots": [
+        {
+          "name": "skill",
+          "type": "LITERAL"
+        }]
+    },
+    {
+      "intent":"WhoIs",
+      "slots": [
+        {
+          "name": "person",
+          "type": "LITERAL"
+        }]
+    }
+  ]
+}
