@@ -47,42 +47,47 @@ def directory():
     #last = (data['request']['intent']['slots']['last']['value'])
     intent = data['request']['intent']['name']
     variables = {}
-    for s in (data['request']['intent']['slots']):
-            variables[s] = (data['request']['intent']['slots'][s]['value'])
-    response, done = functions[intent](**variables)
-    resp = """
-    {
-    "version": "1.0",
-    "sessionAttributes": {
-    "countActionList": {
-    "read": true,
-    "category": true,
-    "currentTask": "none",
-    "currentStep":"1" 
-    }
-    },
-    "response": {
-    "outputSpeech": {
-    "type": "PlainText",
-    "text": "%s"
-    },
-    "card": {
-    "type": "Simple",
-    "title": "CSH Directory",
-    "content": "Skill Lookup"
-    },
-    "reprompt": {
-    "outputSpeech": {
-    "type": "PlainText",
-    "text": "from python."
-    }
-    },
-    "shouldEndSession": "%s"
-    }
-    }
-    """ % (response, "true" if done else "false")
-    return resp
+    if 'slots' in data['request']['intent']:
+        for s in data['request']['intent']['slots']:
+                variables[s] = (data['request']['intent']['slots'][s]['value'])
+    if intent in functions:
+        response, done = functions[intent](**variables)
+        resp = """
+        {
+        "version": "1.0",
+        "sessionAttributes": {
+        "countActionList": {
+        "read": true,
+        "category": true,
+        "currentTask": "none",
+        "currentStep":"1" 
+        }
+        },
+        "response": {
+        "outputSpeech": {
+        "type": "PlainText",
+        "text": "%s"
+        },
+        "card": {
+        "type": "Simple",
+        "title": "CSH Directory",
+        "content": "Skill Lookup"
+        },
+        "reprompt": {
+        "outputSpeech": {
+        "type": "PlainText",
+        "text": "from python."
+        }
+        },
+        "shouldEndSession": "%s"
+        }
+        }
+        """ % (response, "true" if done else "false")
+        return resp
+    return error()
 
+def error():
+    return "I don't know how to do that", True
 
 def skillcheck(skill=None):
     skills = dict(java=['Andrew Hanes'], python=['Shoyler', 'Andrew Hanes'], bash=['Matt Soucy'], lisp=['Bobby G'])
@@ -96,6 +101,6 @@ def skillcheck(skill=None):
     return name, True
     return resp
 
-functions = dict(UserSearch=skillcheck)
+functions = dict(UserSearch=skillcheck, Error=error)
 if __name__ == '__main__':
     app.run()
