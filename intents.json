@@ -1,6 +1,14 @@
 {
   "intents":[
     {
+      "intent": "Error",
+      "slots": []
+    },
+    {
+      "intent": "DropDrink",
+      "slots": []
+    },
+    {
       "intent":"quit",
       "slots":[]
     },
