@@ -36,23 +36,20 @@ initial = """
 
 """
 
-skills = dict(java=['Andrew Hanes'], python=['Shoyler', 'Andrew Hanes'], bash=['Matt Soucy'], lisp=['Bobby G'])
+
 
 @app.route('/get/', methods=['GET', 'POST'])
 def directory():
     data = request.json
     if (data['request']['type'] == 'LaunchRequest'):
         return initial
-    print(data)
     #first = (data['request']['intent']['slots']['first']['value'])
     #last = (data['request']['intent']['slots']['last']['value'])
-    skill = (data['request']['intent']['slots']['skill']['value']).lower()
-    name = 'no one'
-    if skill in skills and len(skills[skill]) > 0:
-        if len(skills[skill]) > 1:
-            name = skills[skill][0] + ' and ' + skills[skill][1]
-        else:
-            name = skills[skill][0]
+    intent = data['request']['intent']['name']
+    variables = {}
+    for s in (data['request']['intent']['slots']):
+            variables[s] = (data['request']['intent']['slots'][s]['value'])
+    response, done = functions[intent](**variables)
     resp = """
     {
     "version": "1.0",
@@ -67,7 +64,7 @@ def directory():
     "response": {
     "outputSpeech": {
     "type": "PlainText",
-    "text": "%s knows %s"
+    "text": "%s"
     },
     "card": {
     "type": "Simple",
@@ -80,11 +77,25 @@ def directory():
     "text": "from python."
     }
     },
-    "shouldEndSession": "true"
+    "shouldEndSession": "%s"
     }
     }
-    """ % (name, skill)
+    """ % (response, "true" if done else "false")
     return resp
 
+
+def skillcheck(skill=None):
+    skills = dict(java=['Andrew Hanes'], python=['Shoyler', 'Andrew Hanes'], bash=['Matt Soucy'], lisp=['Bobby G'])
+    if skill in skills and len(skills[skill]) > 0:
+        if len(skills[skill]) > 1:
+            name = skills[skill][0] + ' and ' + skills[skill][1] + " know " + skill
+        else:
+            name = skills[skill][0] + " knows " + skill
+    else:
+        name = 'no one'
+    return name, True
+    return resp
+
+functions = dict(UserSearch=skillcheck)
 if __name__ == '__main__':
     app.run()
