@@ -19,7 +19,7 @@ def directory():
     if intent in functions:
         response, done = functions[intent](**variables)
         return voice_response(response, done)
-    return error()
+    return modules.err_handle.error()
 
 
 
