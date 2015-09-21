@@ -22,7 +22,7 @@ initial = """
 "responsecard": {
 "type": "Simple",
 "title": "CSH Directory Application",
-"content": "I can count to five."
+"content": "CSH skills lookup tool"
 },
 "reprompt": {
 "outputSpeech": {
