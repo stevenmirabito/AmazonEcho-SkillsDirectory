@@ -27,14 +27,13 @@ def unread_readable(activity_dict):
             unread_posts.append('{post_title} in {newsgroup}'.format(
                 post_title=post['thread_parent']['subject'],
                 newsgroup=post['thread_parent']['newsgroup']))
-
     if unread_posts:
         for formatted_post in unread_posts:
             # If the current item is not the last item in the list and is not the only item.
             if formatted_post is not unread_posts[len(unread_posts)-1] and len(unread_posts) > 1:
                 text_to_read += "{}, ".format(formatted_post)
             # If the current item is the only element in the list.
-            elif len(unread_posts) == 0:
+            elif len(unread_posts) == 1:
                 text_to_read = "That post is {}.".format(formatted_post)
             # Reached the last element.
             elif formatted_post == unread_posts[len(unread_posts)-1] and len(unread_posts) > 1:
@@ -54,5 +53,5 @@ def check_webnews():
 # For testing purposes, running the Python file, executes return_all()
 
 if __name__ == "__main__":
-    print return_all()[0]
+    print check_webnews()[0]
 
