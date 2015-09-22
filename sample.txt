@@ -1,2 +1,6 @@
 UserSearch who knows {java|skill}
+WebNews to check WebNews
+WebNews to check news
+WebNews if there is anything new on news
+WebNews for an update
 Error any
