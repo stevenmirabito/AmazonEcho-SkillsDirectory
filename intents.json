@@ -5,6 +5,10 @@
       "slots": []
     },
     {
+      "intent": "WebNews",
+      "slots": []
+    },
+    {
       "intent": "DropDrink",
       "slots": []
     },
