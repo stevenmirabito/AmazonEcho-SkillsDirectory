@@ -10,7 +10,8 @@ app = Flask(__name__)
 def directory():
     data = request.json
     if data['request']['type'] == 'LaunchRequest':
-        return initial("Welcome to the Computer Science House Skills Directory")
+        print 'asd'
+        return initial("Welcome to the Computer Science House Echo Application")
     intent = data['request']['intent']['name']
     variables = {}
     if 'slots' in data['request']['intent']:
