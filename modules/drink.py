@@ -49,4 +49,4 @@ def main():
 	return drop(base_url, ibutton, machine_id, available_drinks)
 
 if __name__ == '__main__':
-    print main()
+    return main()
