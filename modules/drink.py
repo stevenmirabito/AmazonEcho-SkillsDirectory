@@ -11,6 +11,7 @@ import json
 import urllib
 import urllib2
 import random
+from drinkcreds import IBUTTON
 
 def get_drinks(url, machine_id):
 	available_drinks = []
@@ -42,11 +43,11 @@ def drop(url, ibutton, machine_id, available_drinks):
 		return 'Failed to drop drink.', True
 
 def main():
-	ibutton = ''
+	ibutton = IBUTTON
 	machine_id = '2'
 	base_url = 'https://webdrink.csh.rit.edu/api/index.php?request='
 	available_drinks = get_drinks(base_url, machine_id)
 	return drop(base_url, ibutton, machine_id, available_drinks)
 
 if __name__ == '__main__':
-    return main()
+    main()
