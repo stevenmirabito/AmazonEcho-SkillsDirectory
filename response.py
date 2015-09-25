@@ -34,6 +34,7 @@ def initial(say):
     }
 
     """ % (say, say)
+    return i
 
 
 def voice_response(say, end=False):
