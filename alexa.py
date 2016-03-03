@@ -6,12 +6,11 @@ import modules
 
 app = Flask(__name__)
 
-@app.route('/get/', methods=['GET', 'POST'])
+@app.route('/control/', methods=['GET', 'POST'])
 def directory():
     data = request.json
     if data['request']['type'] == 'LaunchRequest':
-        print 'asd'
-        return initial("Welcome to the Computer Science House Echo Application")
+        return initial("Welcome to Computer Science House! If you need help, say 'help', otherwise say a command.")
     intent = data['request']['intent']['name']
     variables = {}
     if 'slots' in data['request']['intent']:
@@ -26,4 +25,4 @@ def directory():
 
 functions = actions.actions
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
